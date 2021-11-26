@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 
 import UserProfile from './Components/Profile/UserProfile';
@@ -7,19 +7,24 @@ import Login from './Pages/LoginPage';
 import Home from './Pages/HomePage';
 import Navbar from './Components/Layout/Layout';
 import PrivateRoute from "./Components/Routing/PrivateRoute"
+import Register from './Components/Auth/RegisterForm';
 
 function App() {
   return (
-    <Router>
-      <Fragment>
+    <Switch>
+      <Route exact path='/login' >
+        <Login/>
+        </Route>
+        <Route exact path='/register' >
+        <Register/>
+        </Route>
+      <Fragment>    
         <Navbar/>
-        <Routes>
-          <Route exact path='/' element={<PrivateRoute/>}/>
-          <Route exact path='/' element={<Home/>}/>         
-          <Route exact path='/login' element={<Login/>}/>
-        </Routes>
+        <PrivateRoute path="/" exact>
+          <Home/>
+          </PrivateRoute>         
       </Fragment>
-    </Router>
+    </Switch>
   );
 }
 

@@ -1,8 +1,4 @@
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
 
-import classes from './MainNavigation.module.css';
-import AuthContext from '../../Context/auth-context';
 
 
 
@@ -13,7 +9,7 @@ import AuthContext from '../../Context/auth-context';
 const MainNavigation = () => {
 
  
-
+return <div>hello</div>
   
   
 };
