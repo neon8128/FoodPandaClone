@@ -29,6 +29,8 @@ const LoginForm = () =>{
 
   const history = useHistory();
 
+  const [error,SetError] = useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -40,12 +42,14 @@ const LoginForm = () =>{
       email: data.get('email'),
       password: data.get('password'),
     })
-    .then(function (response) {
-      authContext.login(response.data.data);
-      history.push('/');
+    .then((response) => {
+      //let token = response.headers.get(data);
+      //authContext.login(token);
+      //console.log(token);
+       history.push('/');
     })
     .catch(function (error) {
-      console.log(error);
+      SetError(error);
     });
   };
 
@@ -78,9 +82,11 @@ const LoginForm = () =>{
               alignItems: 'center',
             }}
           >
+             {error}
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
          
             </Avatar>
+           
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
