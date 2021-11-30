@@ -42,14 +42,14 @@ const LoginForm = () =>{
       email: data.get('email'),
       password: data.get('password'),
     })
-    .then((response) => {
-      //let token = response.headers.get(data);
+    .then( function(response) {
+      let token = response.config;
       //authContext.login(token);
-      //console.log(token);
-       history.push('/');
+      console.log(token);
+      // history.push('/');
     })
-    .catch(function (error) {
-      SetError(error);
+    .catch( (error) => {
+      SetError("Username or password incorrect");
     });
   };
 
