@@ -43,10 +43,10 @@ const LoginForm = () =>{
       password: data.get('password'),
     })
     .then( function(response) {
-      let token = response.config;
-      //authContext.login(token);
+      let token = response.headers["token"];
+      authContext.login(token);
       console.log(token);
-      // history.push('/');
+       history.push('/');
     })
     .catch( (error) => {
       SetError("Username or password incorrect");
