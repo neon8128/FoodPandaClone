@@ -49,7 +49,7 @@ const LoginForm = () =>{
        history.push('/');
     })
     .catch( (error) => {
-      SetError("Username or password incorrect");
+      SetError(...error);
     });
   };
 

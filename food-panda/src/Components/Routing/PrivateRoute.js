@@ -1,9 +1,13 @@
 import { Route, Redirect } from 'react-router-dom';
 import AuthContext from '../../Context/auth-context';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import axios from 'axios';
+
+
+
 
 function PrivateRoute ({ children, ...rest }) {
-    const context = useContext(AuthContext);
+    const context = useContext(AuthContext);  
     const isAuthenticated = context.isLoggedIn;
     return (
       <Route {...rest} render={() => {
