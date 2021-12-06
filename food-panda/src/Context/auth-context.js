@@ -6,23 +6,27 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
+
 });
 
-const getToken = async() =>{
 
- 
-  const req= await axios.get("https://localhost:5001/token/get");
-  const token = req.then( res =>res.data);
-
-             
-  return token;
-}
 
 export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
 
+  const tokenHandler = async() =>{
+
+   const response= await axios("https://localhost:44321/token/get", {
+      method: "GET",
+      withCredentials: true,
+    });
+              
+    
+    setToken(response.data);
+
+  }
  
-  const userIsLoggedIn = !!token;
+  const userIsLoggedIn = !!(token||tokenHandler());
 
   const loginHandler = (token) => {
     setToken(token);
@@ -33,6 +37,8 @@ export const AuthContextProvider = (props) => {
     setToken(null);
 
   };
+
+
 
   const contextValue = {
     token: token,
