@@ -5,18 +5,10 @@ import AuthContext from '../../Context/auth-context';
 import Grid from "@mui/material/Grid";
 
 const HomeComponent = () => {
-  const [name, SetName] = useState("");
-  const[restaurant,SetRestaurant] = useState('');
-  const context = useContext(AuthContext);  
  
-   
-  
-    
-
-
   return(
     <Grid container component="main" sx={{ height: "100vh" }}>
-    
+    <h1>This is the homepage</h1>
     </Grid>
   );
 };

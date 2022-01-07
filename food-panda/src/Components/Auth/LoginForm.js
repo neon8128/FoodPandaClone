@@ -12,9 +12,8 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 
 import { useContext, useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import AuthContext from "../../Context/auth-context";
 
 const theme = createTheme();
@@ -24,7 +23,7 @@ const LoginForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [error, SetError] = useState("");
 
@@ -47,7 +46,7 @@ const LoginForm = () => {
       let token = response.data.data;
       authContext.login(token);
       console.log(token);
-      history.push("/");
+      navigate("/");
     }
     catch(e){
       console.log(e);
@@ -140,7 +139,7 @@ const LoginForm = () => {
                   <Link
                     href=""
                     variant="body2"
-                    onClick={() => history.push("/register")}
+                    onClick={() => navigate("/register")}
                   >
                     {"Don't have an account? Sign Up"}
                   </Link>

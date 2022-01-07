@@ -1,7 +1,12 @@
-import UserProfile from '../components/profile/user-profile';
+import UserProfile from '../Components/Profile/UserProfile';
+import { withRouter } from 'react-router-dom';
 
 const ProfilePage = () => {
-  return <UserProfile />;
+ 
+    return <UserProfile />;
+
+
+  
 };
 
 export default ProfilePage;

@@ -1,21 +1,28 @@
-import { Route, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navigate, Outlet,useLocation } from 'react-router-dom';
+import { useContext,useEffect } from 'react';
 import AuthContext from '../../Context/auth-context';
-import { useContext, useState } from 'react';
-import axios from 'axios';
 
+const PrivateRoute = () => {
+  
+  let location = useLocation();
+  let context =  useContext(AuthContext);  
+  let isAuthenticated = context.isLoggedIn;
+  
+  
 
-
-
-function PrivateRoute ({ children, ...rest }) {
-    const context = useContext(AuthContext);  
-    const isAuthenticated = context.isLoggedIn;
-    return (
-      <Route {...rest} render={() => {
-        return isAuthenticated === true
-          ? children
-          : <Redirect to='/login' />
-      }} />
-    )
+  if (!isAuthenticated) {
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected. This allows us to send them
+    // along to that page after they login, which is a nicer user experience
+    // than dropping them off on the home page.
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
+  else{
+    console.log("Redirected");
+    return <Outlet />;
   }
 
+  
+}
 export default PrivateRoute;
