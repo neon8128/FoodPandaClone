@@ -9,7 +9,7 @@
 const MainNavigation = () => {
 
  
-return <div>hello</div>
+return <div>this is the navbar that should be seen only if you are authenticated</div>
   
   
 };

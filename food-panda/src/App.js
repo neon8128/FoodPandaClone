@@ -1,30 +1,37 @@
-import { Fragment } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Fragment,useContext } from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 
-import UserProfile from './Components/Profile/UserProfile';
-import Login from './Pages/LoginPage';
+import Profile from './Pages/ProfilePage';
 import Home from './Pages/HomePage';
 import Navbar from './Components/Layout/Layout';
 import PrivateRoute from "./Components/Routing/PrivateRoute"
-import Register from './Components/Auth/RegisterForm';
+import AuthContext from './Context/auth-context';
+import Login from './Pages/LoginPage';
+import Register from './Pages/RegisterPage';
 
-function App() {
+
+
+ function App() {
+
+  
+  const context = useContext(AuthContext);  
+  const isAuthenticated = context.isLoggedIn;
+
+
   return (
-    <Switch>
-      <Route exact path='/login' >
-        <Login/>
-        </Route>
-        <Route exact path='/register' >
-        <Register/>
-        </Route>
-      <Fragment>    
-        <Navbar/>
-        <PrivateRoute path="/" exact>
-          <Home/>
-          </PrivateRoute>         
+    <Router>
+      <Fragment>
+        {isAuthenticated && <Navbar/> }
+        <Routes>
+          <Route exact path='/' isAuth={isAuthenticated} element={<PrivateRoute/>}>
+            <Route exact path='/' element={<Home/>}/>
+          </Route>
+          <Route exact path='/register' element={<Register/>}/>
+          <Route exact path='/login' element={<Login/>}/>
+        </Routes>
       </Fragment>
-    </Switch>
+    </Router>
   );
 }
 

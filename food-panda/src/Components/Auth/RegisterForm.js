@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
 
 const theme = createTheme();
@@ -18,11 +18,11 @@ const theme = createTheme();
 
 const Register =()  =>{
 
-    const history = useHistory();
+    const navigate = useNavigate();
     
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = "https://localhost:5001/auth/register";
+    const url = "https://localhost:44321/auth/register";
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
     fetch(url, {
@@ -50,7 +50,7 @@ const Register =()  =>{
         })
         .then((data) => {
           console.log(data);
-          history.push('/login');
+          navigate.push('/login');
         })
         .catch((err) => {
           alert(err.message);
@@ -134,7 +134,7 @@ const Register =()  =>{
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="" variant="body2" onClick={() => history.push('/login')} >
+                <Link href="" variant="body2" onClick={() => navigate('/login')} >
                   Already have an account? Sign in
                 </Link>
                
