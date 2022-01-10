@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <Fragment>
-       {isAuthenticated && <Navbar position="sticky" /> } 
+       {isAuthenticated && <Navbar/> } 
         <Routes>
           <Route exact path="/" element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
