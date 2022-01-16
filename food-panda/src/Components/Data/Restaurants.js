@@ -27,6 +27,7 @@ export const Restaurants=() =>
             <Box p={5} pt={15} minHeight="100vh">
           <Grid container spacing={5}>       
             {restaurants.map((mediaCard, i) => {
+                console.log(mediaCard);
               return (
                 <Grid key={i} item>
                   <Card {...mediaCard} />

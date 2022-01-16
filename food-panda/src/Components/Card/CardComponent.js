@@ -23,7 +23,7 @@ const  CardComponent =(props) =>{
        
         <Card  className={classes.root} >
          <CardActionArea>
-        <CardMedia className={classes.media} image={'/img/image_placeholder.png'} title={props.name} />
+        <CardMedia className={classes.media} image={props.imagePath} title={props.name} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {props.name}
