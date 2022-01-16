@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Resizer from "react-image-file-resizer";
+
+
 
 const defaultImageSrc = "/img/image_placeholder.png";
 
@@ -12,7 +13,7 @@ const initialFieldValues = {
   imageFile: null,
 };
 
-const CreateRestaurant = (props) => {
+export const CreateRestaurantForm = (props) => {
   const { addOrEdit, recordForEdit } = props;
 
   const [values, setValues] = useState(initialFieldValues);
@@ -30,29 +31,13 @@ const CreateRestaurant = (props) => {
     });
   };
 
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        300,
-        300,
-        "JPEG",
-        100,
-        0,
-        (uri) => {
-          console.log(uri);
-          resolve(uri);
-        },
-        "blob"
-      );
-    });
 
   const showPreview = async (e) => {
     if (e.target.files && e.target.files[0]) {
       const temp = e.target.files[0];
 
       try {
-        const imageFile = /*await resizeFile(temp);*/e.target.files[0];
+        const imageFile = e.target.files[0];
         const reader = new FileReader();
         reader.onload = (x) => {
           setValues({
@@ -169,4 +154,4 @@ const CreateRestaurant = (props) => {
   );
 };
 
-export default CreateRestaurant;
+export default CreateRestaurantForm;
