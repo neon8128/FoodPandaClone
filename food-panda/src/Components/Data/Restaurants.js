@@ -1,6 +1,8 @@
 import { useAsync } from "react-use";
 import { useEffect, useState } from "react";
-import CardComponent from "../Card/CardComponent";
+import Card from "../Card/CardComponent";
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 
 
@@ -22,16 +24,18 @@ export const Restaurants=() =>
 
      
     return(
-        <>
-        {restaurants.map(restaurant => 
-            <CardComponent 
-            key={restaurant.key}
-            item={restaurant}
-            />
-            )}
-        <div>Hello from restaurants 
-             </div>
-        </>
+            <Box p={5} pt={15} minHeight="100vh">
+          <Grid container spacing={5}>       
+            {restaurants.map((mediaCard, i) => {
+              return (
+                <Grid key={i} item>
+                  <Card {...mediaCard} />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+              
     );
 }
 export default Restaurants;
