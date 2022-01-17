@@ -13,6 +13,7 @@ import AuthContext from "./Context/auth-context";
 
 import AddRestaurantPage from "./Pages/AddRestaurantPage";
 import { useLocation } from "react-use";
+import LogOut from "./Components/Auth/LogOut";
 
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
         <Routes>
           <Route exact path="/" element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
+          </Route>
+          <Route exact path="/logout" element={<PrivateRoute />}>
+            <Route path="/logout" element={<LogOut />} />
           </Route>
           <Route exact path="/create" element={<AddRestaurantPage/>}/>
           <Route exact path="/register" element={<Register />} />

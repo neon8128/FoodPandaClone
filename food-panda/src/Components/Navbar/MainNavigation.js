@@ -16,6 +16,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Avatar } from "@mui/material";
 
+import { Navigate } from "react-router-dom";
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -80,6 +82,11 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const RedirectToLogOut =() =>{
+    <Navigate to="/logout" />
+    
+  }
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -99,6 +106,14 @@ export default function PrimarySearchAppBar(props) {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuClose();
+          RedirectToLogOut();
+        }}
+      >
+        Log Out
+      </MenuItem>
     </Menu>
   );
 
