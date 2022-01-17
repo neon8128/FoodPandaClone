@@ -25,14 +25,14 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const [error, SetError] = useState("");
+  //const [error, SetError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     const data = new FormData(event.currentTarget);
     const url = "https://localhost:44321/auth/login";
-
+    
     try{
       const response = await axios
       .post(
@@ -85,7 +85,6 @@ const LoginForm = () => {
               alignItems: "center",
             }}
           >
-            {error}
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
 
             <Typography component="h1" variant="h5">
