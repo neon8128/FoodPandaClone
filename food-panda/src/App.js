@@ -12,16 +12,18 @@ import Register from "./Pages/RegisterPage";
 import AuthContext from "./Context/auth-context";
 
 import AddRestaurantPage from "./Pages/AddRestaurantPage";
+import { useLocation } from "react-use";
 
 function App() {
 
   let context = useContext(AuthContext);
   let isAuthenticated = context.isLoggedIn;
+  let location = useLocation();
 
   return (
     <Router>
       <Fragment>
-       {isAuthenticated && <Navbar/> } 
+       {location.pathname !== "/"  && <Navbar/> } 
         <Routes>
           <Route exact path="/" element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />

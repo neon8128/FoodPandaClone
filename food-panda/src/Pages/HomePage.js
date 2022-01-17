@@ -1,25 +1,29 @@
 
 import { useEffect, useState } from "react";
+import { useAsync } from "react-use";
 import CardList from "../Components/Card/CardList";
 import Navbar from "../Components/Navbar/MainNavigation";
 import SearchBar from "../Components/Search/SearchBar";
 
 const HomePage = () => {
    const [data, setData] = useState([]);
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState(data);
+    const [text, setText] = useState("");
+
+    
+    useEffect(()=>{
+       
+        SearchData();
+    },[text,data])
     const getData = async() =>{
         await fetch("https://localhost:44321/restaurants/getall")
        .then(response => response.json())
        .then(jsonResponse => {
-           
         setData([jsonResponse.data][0]);
       });
     }
-     
-    useEffect( async() => {
-        await getData();
-    }, [])
-    const SearchData =  (text) =>{
+
+    const SearchData =  () =>{
         if(text !== ""){
             const filtered = data.filter((item)=>{
                 return item.name.toLowerCase().includes(text.toLowerCase());
@@ -30,17 +34,22 @@ const HomePage = () => {
             setResults(data);
         } 
     }
+     
+    const state= useAsync(getData,[]);
+
+  if(state.loading) {return <div>Loading Data</div> }
+
 
     const handleInput = (e) =>{
-        console.log(e.target.value);
-        SearchData(e.target.value);
+        setText(e.target.value.toLowerCase());
+       
     }
 
-  
+    
 
     return (
     <>
-    <SearchBar handleInput={handleInput}/>
+    <Navbar handleInput={handleInput}/>
     <CardList results={results}/>  
     </>);
 };
