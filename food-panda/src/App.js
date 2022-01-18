@@ -13,6 +13,7 @@ import AuthContext from "./Context/auth-context";
 
 import AddRestaurantPage from "./Pages/AddRestaurantPage";
 import { useLocation } from "react-use";
+import MyRestaurantPage from "./Pages/MyRestaurantPage";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
           </Route>
           <Route exact path="/create" element={<AddRestaurantPage/>}/>
+          <Route exact path="/myrestaurant" element={<MyRestaurantPage/>}/>
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
         </Routes>

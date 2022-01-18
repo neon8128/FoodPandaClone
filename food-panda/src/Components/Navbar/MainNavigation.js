@@ -15,6 +15,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Avatar } from "@mui/material";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -60,6 +61,8 @@ export default function PrimarySearchAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const navigate = useNavigate();
+
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -78,6 +81,10 @@ export default function PrimarySearchAppBar(props) {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const GotoRestaurant = () =>{
+    <Navigate to ="/myrestaurant"/>
   };
 
   const menuId = "primary-search-account-menu";
@@ -99,6 +106,7 @@ export default function PrimarySearchAppBar(props) {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={()=>navigate("/myrestaurant") }>My restaurant</MenuItem>
     </Menu>
   );
 
