@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import "./style.css"
 
 
 const defaultImageSrc = "/img/image_placeholder.png";

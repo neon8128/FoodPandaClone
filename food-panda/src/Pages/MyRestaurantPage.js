@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState,useContext } from "react";
 import { useAsync } from "react-use";
-import MyRestaurantForm from "../Components/RestaurantForm/MyRestaurantForm";
+import MenuList from "../Components/RestaurantForm/MenuList.js";
 import AuthContext from "../Context/auth-context";
 
 
@@ -29,6 +29,6 @@ const MyRestaurantPage = () =>{
     }
     let state = useAsync(getRestaurant,[]);
     if(state.loading) {return <div>Loading Restaurant</div> }
-    return <MyRestaurantForm restaurant={result}/>
+    return <MenuList restaurant={result} token={token} />
   }
   export default MyRestaurantPage;

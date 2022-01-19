@@ -60,7 +60,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
@@ -163,7 +162,7 @@ export default function PrimarySearchAppBar(props) {
   );
 
   return (
-    <AppBar style={{ position: "sticky" }}>
+    <AppBar position="fixed" colors="inherit">
       <Toolbar>
         <IconButton
           size="large"

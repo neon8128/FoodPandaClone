@@ -1,6 +1,6 @@
 import { Fragment, useContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import "bootstrap/dist/css/bootstrap.css";
 import Profile from "./Pages/ProfilePage";
 import Home from "./Pages/HomePage";
 import Navbar from "./Components/Navbar/MainNavigation";
