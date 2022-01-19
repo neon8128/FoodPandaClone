@@ -108,8 +108,8 @@ export const MenuList = (props) =>{
                             [...Array(Math.ceil(menuList.length / 3))].map((e, i) =>
                                 <tr key={i}>
                                     <td>{imageCard(menuList[3 * i])}</td>
-                                    <td>{menuList[3 * i + 1] ? imageCard(menuList[3 * i + 1]) : null}</td>
-                                    <td>{menuList[3 * i + 2] ? imageCard(menuList[3 * i + 2]) : null}</td>
+                                    <td>{menuList[2 * i + 1] ? imageCard(menuList[2 * i + 1]) : null}</td>
+                                    <td>{menuList[2 * i + 2] ? imageCard(menuList[2 * i + 2]) : null}</td>
                                 </tr>
                             )
                         }

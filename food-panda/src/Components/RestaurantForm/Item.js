@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext } from 'react'
 const defaultImageSrc = '/img/image_placeholder.png'
 
 const initialFieldValues = {
-    Name: '',
+    Item: '',
     Price: '',
     Description:'',
     Categories:'',
-    imageSrc: defaultImageSrc,
+    imagePath: defaultImageSrc,
     imageFile: null
 }
 
@@ -21,6 +21,7 @@ export default function Item(props) {
     useEffect(() => {
         if (recordForEdit != null)
             setValues(recordForEdit);
+            
     }, [recordForEdit])
 
     const handleInputChange = e => {
@@ -93,7 +94,7 @@ export default function Item(props) {
         e.preventDefault()
         if (validate()) {
             const formData = new FormData();
-            formData.append('Item',values.Name);
+            formData.append('Item',values.Item);
             formData.append('Price',values.Price);
             formData.append('Description',values.Description);
             formData.append('Categories',values.Categories);
@@ -109,35 +110,37 @@ export default function Item(props) {
 
     return (
         <>
+        {console.log(values)}
             <div className="container text-center">
                 {/* <p className="lead">An Employee</p> */}
             </div>
             <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
                 <div className="card">
-                    <img src={values.imageSrc} className="card-img-top" />
+                    <img src={values.imagePath} className="card-img-top" />
                     <div className="card-body">
                         <div className="form-group">
                             <input type="file" accept="image/*" className={"form-control-file" + applyErrorClass('imageSrc')}
-                                onChange={showPreview} id="image-uploader" />
+                                onChange={showPreview} id="image-uploader"
+                                 />
                         </div>
                         <div className="form-group">
-                            <input className={"form-control" + applyErrorClass('employeeName')} placeholder="Name" name="Name"
-                                value={values.Name}
+                            <input className={"form-control" + applyErrorClass('Name')} placeholder="Name" name="Item"
+                                value={values.item}
                                 onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
                             <input className="form-control" placeholder="Price" name="Price"
-                                value={values.Price}
+                                value={values.price}
                                 onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
                             <input className="form-control" placeholder="Description" name="Description"
-                                value={values.Description}
+                                value={values.description}
                                 onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
                             <input className="form-control" placeholder="Categories" name="Categories"
-                                value={values.Categories}
+                                value={values.categories}
                                 onChange={handleInputChange} />
                         </div>
                         <div className="form-group text-center">
