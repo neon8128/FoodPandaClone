@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAsync } from "react-use";
 import CardList from "../Components/Card/CardList";
 import Navbar from "../Components/Navbar/MainNavigation";
-import SearchBar from "../Components/Search/SearchBar";
+
 
 const HomePage = () => {
    const [data, setData] = useState([]);

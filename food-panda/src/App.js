@@ -1,7 +1,7 @@
 import { Fragment, useContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
-import Profile from "./Pages/ProfilePage";
+import "bootstrap/dist/css/bootstrap.css";
+import Cart from "./Components/Cart/Cart";
 import Home from "./Pages/HomePage";
 import Navbar from "./Components/Navbar/MainNavigation";
 import PrivateRoute from "./Components/Routing/PrivateRoute";
@@ -14,23 +14,37 @@ import AuthContext from "./Context/auth-context";
 import AddRestaurantPage from "./Pages/AddRestaurantPage";
 import { useLocation } from "react-use";
 import MyRestaurantPage from "./Pages/MyRestaurantPage";
+import ProductsPage from "./Pages/ProductsPage";
 
 function App() {
-
   let context = useContext(AuthContext);
   let isAuthenticated = context.isLoggedIn;
   let location = useLocation();
 
+
+
+
+
+
+
+  
+
   return (
     <Router>
       <Fragment>
-       {location.pathname !== "/"  && <Navbar/> } 
+        {location.pathname !== "/" && <Navbar />}
         <Routes>
           <Route exact path="/" element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
           </Route>
-          <Route exact path="/create" element={<AddRestaurantPage/>}/>
-          <Route exact path="/myrestaurant" element={<MyRestaurantPage/>}/>
+          <Route exact path="/create" element={<AddRestaurantPage />} />
+          <Route path="/menu" element={<ProductsPage />}/>
+          <Route path="/menu/:restaurant" element={<ProductsPage />} />
+          
+          <Route exact path="/myrestaurant" element={<PrivateRoute />}>
+            <Route exact path="/myrestaurant" element={<MyRestaurantPage />} />
+          </Route>
+          <Route path="/cart" element={<Cart/>} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
         </Routes>

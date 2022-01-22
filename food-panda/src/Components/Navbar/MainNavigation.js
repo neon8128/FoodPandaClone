@@ -60,7 +60,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function PrimarySearchAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
@@ -83,9 +82,7 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const GotoRestaurant = () =>{
-    <Navigate to ="/myrestaurant"/>
-  };
+  
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -163,7 +160,7 @@ export default function PrimarySearchAppBar(props) {
   );
 
   return (
-    <AppBar style={{ position: "sticky" }}>
+    <AppBar position="fixed" colors="inherit">
       <Toolbar>
         <IconButton
           size="large"
@@ -187,7 +184,7 @@ export default function PrimarySearchAppBar(props) {
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <IconButton size="large" color="inherit">
             <Badge badgeContent={4} color="error">
-              <AddShoppingCartIcon />
+              <AddShoppingCartIcon onClick={()=>navigate("/cart") } />
             </Badge>
           </IconButton>
           <IconButton
