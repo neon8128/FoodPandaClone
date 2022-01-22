@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { useNavigate } from "react-router";
 
 const useStyles = makeStyles({
     root: {
@@ -18,10 +19,16 @@ const useStyles = makeStyles({
   
 const  CardComponent =(props) =>{
 
+  const navigation = useNavigate();
     const classes = useStyles();
+    console.log(props);
     return (
        
-        <Card  className={classes.root} >
+        <Card  className={classes.root}  
+        onClick= {() => 
+        {navigation(
+          `/menu/${props.id}`
+        )}} >
          <CardActionArea>
         <CardMedia className={classes.media} image={props.imagePath} title={props.name} />
         <CardContent>

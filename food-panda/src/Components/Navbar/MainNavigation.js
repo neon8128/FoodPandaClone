@@ -82,9 +82,7 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const GotoRestaurant = () =>{
-    <Navigate to ="/myrestaurant"/>
-  };
+  
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -186,7 +184,7 @@ export default function PrimarySearchAppBar(props) {
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <IconButton size="large" color="inherit">
             <Badge badgeContent={4} color="error">
-              <AddShoppingCartIcon />
+              <AddShoppingCartIcon onClick={()=>navigate("/cart") } />
             </Badge>
           </IconButton>
           <IconButton

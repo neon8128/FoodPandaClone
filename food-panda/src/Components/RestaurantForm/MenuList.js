@@ -13,12 +13,12 @@ export const MenuList = (props) =>{
     const [menuList, setMenuList] = useState([])
     const [recordForEdit, setRecordForEdit] = useState(null)
 
-
+   
 
    
     const Refresh = async() =>{
     
-        const url = "https://localhost:44321/products/getall";
+        const url = `https://localhost:44321/products/getall?Id=${restaurant.id}`;
     
         try {
             await fetch(url, {
@@ -89,6 +89,7 @@ export const MenuList = (props) =>{
 
     //{...props.restaurant}
     return (
+        
         <div className="row">
             <div className="col-md-12">
             </div>
