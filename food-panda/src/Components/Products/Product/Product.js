@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -8,8 +8,9 @@ import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { makeStyles } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AddCartContext } from '../../../Context/cart-context';
 
+import { useDispatch,useSelector } from 'react-redux';
+import {addToCart} from '../../../features/CartSlice'
 const theme = createTheme();
 //import useStyles from './styles';
 
@@ -32,15 +33,29 @@ const useStyles = makeStyles({
   },
 })
 
-const Product = ({ product, onAddToCart }) => {
+const Product = ({ product}) => {
   const classes = useStyles();
+  const items = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
-  const addItems = useContext(AddCartContext);
- 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    addItems(product);
+
+  
+  const deleteOtherRestaurant =() =>{
+
+    const existingIndex = items.cartItems.findIndex(
+      (item) => item.id === product.restaurant_Id
+    );
+    if(existingIndex>=0){
+      localStorage.setItem("cartItems", []);
+      alert("Deleted items from the restaurant");
+    }
   }
+  const handleAddToCart =() =>{
+    deleteOtherRestaurant();
+    dispatch(addToCart(product));
+    
+  }
+  
   
 
   return (
@@ -59,7 +74,7 @@ const Product = ({ product, onAddToCart }) => {
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
         <Button aria-label="Add to Cart" 
-         onClick={handleAddToCart}
+         onClick={() => handleAddToCart()}
         >
           <AddShoppingCartIcon />
         </Button>

@@ -1,7 +1,7 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import Cart from "./Components/Cart/Cart";
+import Cart from "./Components/Cart/CartLayout";
 import Home from "./Pages/HomePage";
 import Navbar from "./Components/Navbar/MainNavigation";
 import PrivateRoute from "./Components/Routing/PrivateRoute";
@@ -9,7 +9,7 @@ import PrivateRoute from "./Components/Routing/PrivateRoute";
 import Login from "./Pages/LoginPage";
 import Register from "./Pages/RegisterPage";
 
-import AuthContext from "./Context/auth-context";
+
 
 import AddRestaurantPage from "./Pages/AddRestaurantPage";
 import { useLocation } from "react-use";
@@ -17,8 +17,7 @@ import MyRestaurantPage from "./Pages/MyRestaurantPage";
 import ProductsPage from "./Pages/ProductsPage";
 
 function App() {
-  let context = useContext(AuthContext);
-  let isAuthenticated = context.isLoggedIn;
+
   let location = useLocation();
 
 

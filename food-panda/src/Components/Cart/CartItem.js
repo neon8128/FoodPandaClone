@@ -1,77 +1,68 @@
+import { PlusCircleIcon, MinusCircleIcon, TrashIcon } from "../icons/index";
 
+import { useDispatch } from "react-redux";
+import {
+  decreaseCart,
+  removeFromCart,
+  addToCart,
+} from "../../features/CartSlice";
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+const CartItem = ({ product }) => {
+  const dispatch = useDispatch();
 
-const  useStyles =(() => ({
-    media: {
-      height: 260,
-    },
-    cardContent: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    cartActions: {
-      justifyContent: 'space-between',
-    },
-    buttons: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-  }));
-
-export const CartItem = (props) => {
-
-    const classes = useStyles();
-
-
+  const handleDecreaseCart = (product) => {
+    dispatch(decreaseCart(product));
+  };
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeFromCart(product));
+  };
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
   return (
-    <Card className="cart-item">
-      <CardMedia
-        image={props.item.ImagePath}
-        alt={props.item.item}
-        className={classes.media}
-      />
-      <CardContent className={classes.cardContent}>
-        <Typography variant="h4">{props.item.name}</Typography>
-        <Typography variant="h5">
-          {props.price}
-        </Typography>
-      </CardContent>
-      <CardActions className={classes.cardActions}>
-        <div className={classes.buttons}>
-          <Button
-            type="button"
-            size="small"
-            //    onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}
-          >
-            -
-          </Button>
-          <Typography>&nbsp;{}&nbsp;</Typography>
-          <Button
-            type="button"
-            size="small"
-            //    onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}
-          >
-            +
-          </Button>
-        </div>
-        <Button
-          variant="contained"
-          type="button"
-          color="secondary"
-          //  onClick={() => handleRemoveFromCart(item.id)}
+    <div className="row no-gutters py-2">
+      <div className="col-sm-2 p-2">
+        <img
+          alt={product.item}
+          style={{ margin: "0 auto", maxHeight: "50px" }}
+          src={product.imagePath}
+          className="img-fluid d-block"
+        />
+      </div>
+      <div className="col-sm-4 p-2">
+        <h5 className="mb-1">{product.item}</h5>
+        <p className="mb-1">Price: {product.price} </p>
+      </div>
+      <div className="col-sm-2 p-2 text-center ">
+        <p className="mb-0">Qty: {product.cartQuantity}</p>
+      </div>
+      <div className="col-sm-4 p-2 text-right">
+        <button
+          onClick={() => handleAddToCart(product)}
+          className="btn btn-primary btn-sm mr-2 mb-1"
         >
-          Remove
-        </Button>
-      </CardActions>
-    </Card>
+          <PlusCircleIcon width={"20px"} />
+        </button>
+
+        {product.cartQuantity > 1 && (
+          <button
+            onClick={() => handleDecreaseCart(product)}
+            className="btn btn-danger btn-sm mb-1"
+          >
+            <MinusCircleIcon width={"20px"} />
+          </button>
+        )}
+
+        {product.cartQuantity === 1 && (
+          <button
+            onClick={() => handleRemoveFromCart(product)}
+            className="btn btn-danger btn-sm mb-1"
+          >
+            <TrashIcon width={"20px"} />
+          </button>
+        )}
+      </div>
+    </div>
   );
 };
-
 export default CartItem;

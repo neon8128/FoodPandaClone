@@ -1,19 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import "./index.css";
+import App from "./App";
+import { AuthContextProvider } from "./Context/auth-context";
+import { configureStore } from '@reduxjs/toolkit';
+import {Provider} from "react-redux";
+import CartReducer from "./features/CartSlice";
 
-import './index.css';
-import App from './App';
-import { AuthContextProvider } from './Context/auth-context';
-import {CartProvider} from './Context/cart-context';
+const store = configureStore({
+  reducer:{
+    cart:CartReducer
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-  <AuthContextProvider> 
-  <CartProvider>    
-    <App />
-    </CartProvider>
-  </AuthContextProvider>
+    <AuthContextProvider>
+      <Provider store={store}>
+      <App />
+      </Provider>
+    </AuthContextProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

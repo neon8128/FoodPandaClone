@@ -16,6 +16,12 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Avatar } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
+import {
+  clearCart,
+  getTotals,
+} from "../../features/CartSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -61,6 +67,13 @@ export default function PrimarySearchAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+
+  const items = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [items, dispatch]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -183,7 +196,7 @@ export default function PrimarySearchAppBar(props) {
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <IconButton size="large" color="inherit">
-            <Badge badgeContent={4} color="error">
+            <Badge badgeContent={items.cartTotalQuantity} color="error">
               <AddShoppingCartIcon onClick={()=>navigate("/cart") } />
             </Badge>
           </IconButton>

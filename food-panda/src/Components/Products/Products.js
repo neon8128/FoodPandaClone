@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Products = ({ products, onAddToCart }) => {
+const Products = ({ products }) => {
   const classes = useStyles();
   if (!products.length) return <p>Loading...</p>;
 
@@ -29,7 +29,7 @@ const Products = ({ products, onAddToCart }) => {
       <Grid container justify="center" spacing={4}>
         {products.map((product) => (
           <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
-            <Product product={product} onAddToCart={onAddToCart} />
+            <Product product={product} />
           </Grid>
         ))}
       </Grid>

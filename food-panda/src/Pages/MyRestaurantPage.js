@@ -10,6 +10,7 @@ const MyRestaurantPage = () =>{
   
   const  context = useContext(AuthContext);
   const token = context.token;
+  
   const url =" https://localhost:44321/restaurants/getbyuser";
   const [result, setResult] = useState(null);
     const getRestaurant = async() =>{
