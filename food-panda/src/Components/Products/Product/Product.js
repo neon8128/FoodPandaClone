@@ -8,7 +8,8 @@ import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { makeStyles } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { AddCartContext } from '../../../Context/cart-context';
+import { CartContext } from '../../../Context/cart-context';
+
 
 const theme = createTheme();
 //import useStyles from './styles';
@@ -32,14 +33,19 @@ const useStyles = makeStyles({
   },
 })
 
-const Product = ({ product, onAddToCart }) => {
+const Product = ({ product}) => {
   const classes = useStyles();
 
-  const addItems = useContext(AddCartContext);
+  const { addProduct, cartItems, increase } = useContext(CartContext);
+
+  const isInCart = product => {
+    return !!cartItems.find(item => item.id === product.id);
+}
+
  
   const handleAddToCart = (e) => {
     e.preventDefault();
-    addItems(product);
+  
   }
   
 
@@ -59,7 +65,7 @@ const Product = ({ product, onAddToCart }) => {
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
         <Button aria-label="Add to Cart" 
-         onClick={handleAddToCart}
+         onClick={() => addProduct(product)}
         >
           <AddShoppingCartIcon />
         </Button>

@@ -1,77 +1,56 @@
 
+import { useContext } from 'react';
+import { CartContext } from '../../Context/cart-context';
+import { PlusCircleIcon, MinusCircleIcon, TrashIcon } from '../icons/index';
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+export const CartItem = ({product}) => {
 
-const  useStyles =(() => ({
-    media: {
-      height: 260,
-    },
-    cardContent: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    cartActions: {
-      justifyContent: 'space-between',
-    },
-    buttons: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-  }));
+  const { increase, decrease, removeProduct } = useContext(CartContext);
 
-export const CartItem = (props) => {
+  return ( 
+      <div className="row no-gutters py-2">
+          <div className="col-sm-2 p-2">
+              <img
+              //alt={product.item}
+              style={{margin: "0 auto", maxHeight: "50px"}} 
+              src={product.photo} className="img-fluid d-block"/>
+          </div>
+          <div className="col-sm-4 p-2">
+              <h5 className="mb-1">{product.item}</h5>
+              <p className="mb-1">Price: {product.price} </p>
+              
+          </div>
+          {/* <div className="col-sm-2 p-2 text-center ">
+               <p className="mb-0">Qty: {product.quantity}</p>
+          </div> */}
+          <div className="col-sm-4 p-2 text-right">
+               <button 
+               onClick={() => increase(product)}
+               className="btn btn-primary btn-sm mr-2 mb-1">
+                   <PlusCircleIcon width={"20px"}/>
+               </button>
 
-    const classes = useStyles();
+               {
+                   product.quantity > 1 &&
+                   <button
+                  onClick={() => decrease(product)}
+                  className="btn btn-danger btn-sm mb-1">
+                      <MinusCircleIcon width={"20px"}/>
+                  </button>
+               }
 
-
-  return (
-    <Card className="cart-item">
-      <CardMedia
-        image={props.item.ImagePath}
-        alt={props.item.item}
-        className={classes.media}
-      />
-      <CardContent className={classes.cardContent}>
-        <Typography variant="h4">{props.item.name}</Typography>
-        <Typography variant="h5">
-          {props.price}
-        </Typography>
-      </CardContent>
-      <CardActions className={classes.cardActions}>
-        <div className={classes.buttons}>
-          <Button
-            type="button"
-            size="small"
-            //    onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}
-          >
-            -
-          </Button>
-          <Typography>&nbsp;{}&nbsp;</Typography>
-          <Button
-            type="button"
-            size="small"
-            //    onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}
-          >
-            +
-          </Button>
-        </div>
-        <Button
-          variant="contained"
-          type="button"
-          color="secondary"
-          //  onClick={() => handleRemoveFromCart(item.id)}
-        >
-          Remove
-        </Button>
-      </CardActions>
-    </Card>
-  );
+              {
+                   product.quantity === 1 &&
+                   <button
+                  onClick={() => removeProduct(product)}
+                  className="btn btn-danger btn-sm mb-1">
+                      <TrashIcon width={"20px"}/>
+                  </button>
+               }
+               
+          </div>
+      </div>
+   );
 };
 
 export default CartItem;

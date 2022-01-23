@@ -1,36 +1,52 @@
-import React, { createContext, useCallback, useRef, useState } from "react";
+import React, { createContext, useReducer } from 'react';
+import { CartReducer, sumItems } from './CartReducer';
 
 export const CartContext = createContext([]);
-export const AddCartContext = createContext(item => {});
-export const RemoveCartContext = createContext(item => {});
+
+const storage = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+const initialState = { cartItems: storage, ...sumItems(storage), checkout: false };
 
 export const CartProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
-  const [itemsTotal, setItemsTotal] = useState([])
-  const itemsRef = useRef(items);
-  itemsRef.current = items;
+  const [state, dispatch] = useReducer(CartReducer, initialState)
 
-  return (
-    <AddCartContext.Provider
-      value={useCallback(item => {
-        if(Array.isArray(item)){
-          setItems([...itemsRef.current, ...item])
-        }
-        else{
-          setItems([...itemsRef.current, item]);
-        }
-      }, [])}
-    >
-      <RemoveCartContext.Provider
-        value={useCallback(item => {
-          const newItems = itemsRef.current.filter(
-            _item => _item.id !== item.id
-          );
-          setItems(newItems);
-        }, [])}
-      >
-        <CartContext.Provider value={items}>{children}</CartContext.Provider>
-      </RemoveCartContext.Provider>
-    </AddCartContext.Provider>
-  );
+  const increase = payload => {
+      dispatch({type: 'INCREASE', payload})
+  }
+
+  const decrease = payload => {
+      dispatch({type: 'DECREASE', payload})
+  }
+
+  const addProduct = payload => {
+      dispatch({type: 'ADD_ITEM', payload})
+  }
+
+  const removeProduct = payload => {
+      dispatch({type: 'REMOVE_ITEM', payload})
+  }
+
+  const clearCart = () => {
+      dispatch({type: 'CLEAR'})
+  }
+
+  const handleCheckout = () => {
+      console.log('CHECKOUT', state);
+      dispatch({type: 'CHECKOUT'})
+  }
+
+  const contextValues = {
+      removeProduct,
+      addProduct,
+      increase,
+      decrease,
+      clearCart,
+      handleCheckout,
+      ...state
+  } 
+
+  return ( 
+      <CartContext.Provider value={contextValues} >
+          { children }
+      </CartContext.Provider>
+   );
 };

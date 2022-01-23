@@ -1,7 +1,7 @@
 import { Fragment, useContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import Cart from "./Components/Cart/Cart";
+import Cart from "./Components/Cart/CartLayout";
 import Home from "./Pages/HomePage";
 import Navbar from "./Components/Navbar/MainNavigation";
 import PrivateRoute from "./Components/Routing/PrivateRoute";
