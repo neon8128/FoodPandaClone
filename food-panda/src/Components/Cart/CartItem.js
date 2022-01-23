@@ -1,11 +1,24 @@
+import { PlusCircleIcon, MinusCircleIcon, TrashIcon } from "../icons/index";
+
+import { useDispatch } from "react-redux";
 import {
-  PlusCircleIcon,
-  MinusCircleIcon,
-  TrashIcon,
-} from "../icons/index";
+  decreaseCart,
+  removeFromCart,
+  addToCart,
+} from "../../features/CartSlice";
+
 const CartItem = ({ product }) => {
-  //const { increase, decrease, removeProduct } = useCart();
-    
+  const dispatch = useDispatch();
+
+  const handleDecreaseCart = (product) => {
+    dispatch(decreaseCart(product));
+  };
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeFromCart(product));
+  };
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
   return (
     <div className="row no-gutters py-2">
       <div className="col-sm-2 p-2">
@@ -25,7 +38,7 @@ const CartItem = ({ product }) => {
       </div>
       <div className="col-sm-4 p-2 text-right">
         <button
-         // onClick={() => increase(product)}
+          onClick={() => handleAddToCart(product)}
           className="btn btn-primary btn-sm mr-2 mb-1"
         >
           <PlusCircleIcon width={"20px"} />
@@ -33,7 +46,7 @@ const CartItem = ({ product }) => {
 
         {product.cartQuantity > 1 && (
           <button
-           // onClick={() => decrease(product)}
+            onClick={() => handleDecreaseCart(product)}
             className="btn btn-danger btn-sm mb-1"
           >
             <MinusCircleIcon width={"20px"} />
@@ -42,7 +55,7 @@ const CartItem = ({ product }) => {
 
         {product.cartQuantity === 1 && (
           <button
-           // onClick={() => removeProduct(product)}
+            onClick={() => handleRemoveFromCart(product)}
             className="btn btn-danger btn-sm mb-1"
           >
             <TrashIcon width={"20px"} />

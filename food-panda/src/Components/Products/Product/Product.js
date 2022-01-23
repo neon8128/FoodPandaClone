@@ -44,6 +44,7 @@ const Product = ({ product}) => {
     
   }
   
+  
 
   return (
     <Card className={classes.root}>
