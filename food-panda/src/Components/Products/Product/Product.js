@@ -9,7 +9,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { makeStyles } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import {addToCart} from '../../../features/CartSlice'
 const theme = createTheme();
 //import useStyles from './styles';
@@ -35,11 +35,23 @@ const useStyles = makeStyles({
 
 const Product = ({ product}) => {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const items = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
 
   
+  const deleteOtherRestaurant =() =>{
+
+    const existingIndex = items.cartItems.findIndex(
+      (item) => item.id === product.restaurant_Id
+    );
+    if(existingIndex>=0){
+      localStorage.setItem("cartItems", []);
+      alert("Deleted items from the restaurant");
+    }
+  }
   const handleAddToCart =() =>{
+    deleteOtherRestaurant();
     dispatch(addToCart(product));
     
   }
