@@ -9,8 +9,8 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { makeStyles } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-
-
+import { useDispatch } from 'react-redux';
+import {addToCart} from '../../../features/CartSlice'
 const theme = createTheme();
 //import useStyles from './styles';
 
@@ -35,11 +35,13 @@ const useStyles = makeStyles({
 
 const Product = ({ product}) => {
   const classes = useStyles();
+  const dispatch = useDispatch()
 
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
   
+  const handleAddToCart =() =>{
+    dispatch(addToCart(product));
+    
   }
   
 
@@ -59,7 +61,7 @@ const Product = ({ product}) => {
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
         <Button aria-label="Add to Cart" 
-        // onClick={() => addProduct(product)}
+         onClick={() => handleAddToCart()}
         >
           <AddShoppingCartIcon />
         </Button>
