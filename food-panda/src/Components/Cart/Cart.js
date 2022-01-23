@@ -1,13 +1,9 @@
-import { Link } from 'react-router-dom';
-
-
-import { useContext } from 'react';
-import { CartContext } from '../../Context/cart-context';
+import Cart, { useCart } from '../../hooks/useCart'
 import CartItem from './CartItem';
 
 const Cart = () => {
 
-  const { cartItems } = useContext(CartContext);
+  const { cartItems } = useCart;
 
   console.log(cartItems);
     return ( 
@@ -16,12 +12,11 @@ const Cart = () => {
         >
             <div className="card card-body border-0">
 
-                {
+                {/* {
                     cartItems.map(product => 
-                        // <CartItem key={product.id} product={product}/>
-                       console.log("cart")
+                         <CartItem key={product.id} product={product}/>
                         )
-                }
+                } */}
 
             </div>
         </div>

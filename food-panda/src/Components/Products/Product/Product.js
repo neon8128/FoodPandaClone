@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { makeStyles } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CartContext } from '../../../Context/cart-context';
+
 
 
 const theme = createTheme();
@@ -36,13 +36,7 @@ const useStyles = makeStyles({
 const Product = ({ product}) => {
   const classes = useStyles();
 
-  const { addProduct, cartItems, increase } = useContext(CartContext);
 
-  const isInCart = product => {
-    return !!cartItems.find(item => item.id === product.id);
-}
-
- 
   const handleAddToCart = (e) => {
     e.preventDefault();
   
@@ -65,7 +59,7 @@ const Product = ({ product}) => {
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
         <Button aria-label="Add to Cart" 
-         onClick={() => addProduct(product)}
+        // onClick={() => addProduct(product)}
         >
           <AddShoppingCartIcon />
         </Button>

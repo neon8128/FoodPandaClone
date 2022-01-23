@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 
 
-import { CartContext } from '../../Context/cart-context';
+
 
 
 const Cart = () => {
 
-    const { total, cartItems, itemCount, clearCart, checkout, handleCheckout } = useContext(CartContext);
+   
     
     return ( 
   
@@ -21,14 +21,14 @@ const Cart = () => {
                 <div className="row no-gutters justify-content-center">
                     <div className="col-sm-9 p-3">
                         {
-                            cartItems.length > 0 ?
-                            <Cart/> :
+                          //  cartItems.length > 0 ?
+                         //   <Cart/> :
                             <div className="p-3 text-center text-muted">
                                 Your cart is empty
                             </div>
                         }
 
-                        { checkout && 
+                        { //checkout && 
                             <div className="p-3 text-center text-success">
                                 <p>Checkout successfull</p>
                                 <Link to="/" className="btn btn-outline-success btn-sm">BUY MORE</Link>
@@ -36,17 +36,17 @@ const Cart = () => {
                         }
                     </div>
                     {
-                        cartItems.length > 0 && 
+                       // cartItems.length > 0 && 
                         <div className="col-sm-3 p-3">
                             <div className="card card-body">
                                 <p className="mb-1">Total Items</p>
-                                <h4 className=" mb-3 txt-right">{itemCount}</h4>
+                                <h4 className=" mb-3 txt-right"></h4>
                                 <p className="mb-1">Total Payment</p>
-                                <h3 className="m-0 txt-right">{total}</h3>
+                                <h3 className="m-0 txt-right"></h3>
                                 <hr className="my-4"/>
                                 <div className="text-center">
-                                    <button type="button" className="btn btn-primary mb-2" onClick={handleCheckout}>CHECKOUT</button>
-                                    <button type="button" className="btn btn-outlineprimary btn-sm" onClick={clearCart}>CLEAR</button>
+                                    <button type="button" className="btn btn-primary mb-2" >CHECKOUT</button>
+                                    <button type="button" className="btn btn-outlineprimary btn-sm" >CLEAR</button>
                                 </div>
 
                             </div>
