@@ -78,7 +78,7 @@ export default function PrimarySearchAppBar(props) {
   }, [items, dispatch]);
 
   const context = React.useContext(AuthContext);
-  const user = context.user;
+  const user = context.username;
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
