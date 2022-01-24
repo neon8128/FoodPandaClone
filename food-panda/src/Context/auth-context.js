@@ -41,7 +41,7 @@ export const AuthContextProvider = (props) => {
   const parseJwt = (token) => {
     if(token == null) return null;
     try {
-      return JSON.parse(atob(token.split(".")[1]).email);
+      return JSON.parse(atob(token.split(".")[1]));
     } catch (e) {
       return null;
     }
@@ -54,7 +54,7 @@ export const AuthContextProvider = (props) => {
   }
   const userIsLoggedIn = !!token;
 
-  const getName = parseJwt(token);
+  const getName = parseJwt(token).unique_name;
 
   const loginHandler = (token) => {
     setToken(token);
@@ -68,7 +68,7 @@ export const AuthContextProvider = (props) => {
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
-    user: getName,
+    username: getName,
     login: loginHandler,
     logout: logoutHandler,
     loading: state.loading,

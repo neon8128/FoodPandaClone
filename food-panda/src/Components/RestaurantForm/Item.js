@@ -81,7 +81,7 @@ export default function Item(props) {
            })
              .then((response) => response.json())
              .then((jsonResponse) => {
-               console.log(jsonResponse);
+              // console.log(jsonResponse);
              });
            // console.log(response);
           } catch (err) {
@@ -110,7 +110,7 @@ export default function Item(props) {
 
     return (
         <>
-        {console.log(values)}
+        
             <div className="container text-center">
                 {/* <p className="lead">An Employee</p> */}
             </div>

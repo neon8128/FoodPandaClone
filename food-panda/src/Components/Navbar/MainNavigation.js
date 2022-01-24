@@ -23,6 +23,7 @@ import {
 } from "../../features/CartSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AuthContext from "../../Context/auth-context";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -76,6 +77,8 @@ export default function PrimarySearchAppBar(props) {
     dispatch(getTotals());
   }, [items, dispatch]);
 
+  const context = React.useContext(AuthContext);
+  const user = context.user;
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -198,7 +201,7 @@ export default function PrimarySearchAppBar(props) {
             onClick={handleProfileMenuOpen}
             color="inherit"
           >
-            <Avatar alt="David Suciu" src="/static/images/avatar/2.jpg" />
+            <Avatar alt={user}src="/static/images/avatar/2.jpg" />
           </IconButton>
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" } }}>

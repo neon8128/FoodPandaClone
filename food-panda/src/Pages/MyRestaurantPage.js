@@ -10,19 +10,19 @@ const MyRestaurantPage = () =>{
   
   const  context = useContext(AuthContext);
   const token = context.token;
-  const email = context.user;
+  const user = context.username;
+ 
   
-  const url =" https://localhost:44321/restaurants/getbyuser";
+  
+  const url = `https://localhost:44321/restaurants/GetByUser?name=${user}`;
   const [result, setResult] = useState(null);
     const getRestaurant = async() =>{
       await fetch(url,{
         method: 'get',
         headers : {
-          'Content-Type' : 'application/json',
-          'Accept' : 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body:JSON.stringify(email)
+       
       })
         
       .then(response => response.json())
@@ -32,6 +32,7 @@ const MyRestaurantPage = () =>{
     }
     let state = useAsync(getRestaurant,[]);
     if(state.loading) {return <div>Loading Restaurant</div> }
+    if(result == null) {return <div>Not found!</div>}
     return <MenuList restaurant={result} token={token} />
   }
   export default MyRestaurantPage;
