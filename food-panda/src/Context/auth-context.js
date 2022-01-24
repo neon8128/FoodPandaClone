@@ -5,6 +5,7 @@ import { useAsync } from "react-use";
 const AuthContext = React.createContext({
   token: "",
   isLoggedIn: false,
+  user:"",
   login: (token) => {},
   logout: () => {},
   loading: false,
@@ -13,6 +14,7 @@ const AuthContext = React.createContext({
 export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
   // const [loading,setLoading]=useState(false);
+  const [user, setUser] = useState(null);
 
   const getUser = async () => {
     // setLoading(true)
@@ -41,20 +43,26 @@ export const AuthContextProvider = (props) => {
   const parseJwt = (token) => {
     if(token == null) return null;
     try {
-      return JSON.parse(atob(token.split(".")[1]));
+      return JSON.parse(atob(token.split(".")[1])).unique_name;
     } catch (e) {
       return null;
     }
   };
 
   const state = useAsync(getUser, []);
-
   if (state.loading) {
     return <div>Loading</div>;
   }
+  
   const userIsLoggedIn = !!token;
 
-  const getName = parseJwt(token).unique_name;
+  const getName =()=>{
+    if(!!token){
+      return ;
+    }
+    
+  }
+   
 
   const loginHandler = (token) => {
     setToken(token);
@@ -68,7 +76,7 @@ export const AuthContextProvider = (props) => {
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
-    username: getName,
+    username: parseJwt(token),
     login: loginHandler,
     logout: logoutHandler,
     loading: state.loading,
