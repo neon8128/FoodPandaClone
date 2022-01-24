@@ -14,6 +14,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import HomeIcon from '@mui/icons-material/Home';
 import { Avatar } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
 import {
@@ -145,18 +146,6 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -182,7 +171,7 @@ export default function PrimarySearchAppBar(props) {
           aria-label="open drawer"
           sx={{ mr: 2 }}
         >
-          <MenuIcon />
+          <HomeIcon onClick={()=>navigate("/")} />
         </IconButton>
         <Search onChange={props.handleInput}>
           <SearchIconWrapper>
@@ -198,15 +187,6 @@ export default function PrimarySearchAppBar(props) {
           <IconButton size="large" color="inherit">
             <Badge badgeContent={items.cartTotalQuantity} color="error">
               <AddShoppingCartIcon onClick={()=>navigate("/cart") } />
-            </Badge>
-          </IconButton>
-          <IconButton
-            size="large"
-            aria-label="show 17 new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
             </Badge>
           </IconButton>
           <IconButton
