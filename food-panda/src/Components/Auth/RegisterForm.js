@@ -49,7 +49,6 @@ const Register =()  =>{
           }
         })
         .then((data) => {
-          console.log(data);
           navigate.push('/login');
         })
         .catch((err) => {

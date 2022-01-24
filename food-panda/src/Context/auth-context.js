@@ -1,74 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useAsync } from 'react-use';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useAsync } from "react-use";
 
 const AuthContext = React.createContext({
-  token: '',
+  token: "",
   isLoggedIn: false,
   login: (token) => {},
   logout: () => {},
-  loading:false,
+  loading: false,
 });
-
-
 
 export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(null);
- // const [loading,setLoading]=useState(false);
+  // const [loading,setLoading]=useState(false);
 
-  const getUser = async() =>{
-   // setLoading(true)
-    await axios.get("https://localhost:44321/token/get",{ withCredentials: true })
-    
-    .then((response) => {
-     // setLoading(false);
-      setToken(response.data.rawData);
-     
-    })
-    .catch((error) => {
-    if (error.response) {
-        console.log(error.response.data);
-        console.log(error.response.status);
-       
-    } else if (error.request) {
+  const getUser = async () => {
+    // setLoading(true)
+    await axios
+      .get("https://localhost:44321/token/get", { withCredentials: true })
 
-      console.log(error.request);
-    } else {
-        // Something happened in setting up the request and triggered an Error
-        console.log('Error', error.message);
+      .then((response) => {
+        // setLoading(false);
+        setToken(response.data.rawData);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request and triggered an Error
+          console.log("Error", error.message);
+        }
+
+        return false;
+      });
+  };
+
+  const parseJwt = (token) => {
+    if(token == null) return null;
+    try {
+      return JSON.parse(atob(token.split(".")[1]).email);
+    } catch (e) {
+      return null;
     }
+  };
 
-    return false;
-});
+  const state = useAsync(getUser, []);
+
+  if (state.loading) {
+    return <div>Loading</div>;
   }
-  // useEffect(()=> {
- 
-  //   getUser();
- 
-  // },[])
-  const state= useAsync(getUser,[]);
+  const userIsLoggedIn = !!token;
 
-  if(state.loading) {return <div>Loading</div> }
-  const  userIsLoggedIn = !!token;
+  const getName = parseJwt(token);
 
   const loginHandler = (token) => {
     setToken(token);
-
   };
 
   const logoutHandler = () => {
     setToken(null);
-
   };
-
 
 
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
+    user: getName,
     login: loginHandler,
     logout: logoutHandler,
-    loading:state.loading,
+    loading: state.loading,
   };
 
   return (

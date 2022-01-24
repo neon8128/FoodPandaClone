@@ -21,7 +21,7 @@ const  CardComponent =(props) =>{
 
   const navigation = useNavigate();
     const classes = useStyles();
-    console.log(props);
+
     return (
        
         <Card  className={classes.root}  

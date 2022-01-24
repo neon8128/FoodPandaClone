@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 
 
 const CardList = (props) => {
- console.log(props);
+
   return(
     <Box p={5} pt={15} minHeight="100vh">
   <Grid container spacing={5}>       

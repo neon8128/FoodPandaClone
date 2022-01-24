@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import "./style.css"
-
+import AuthContext from "../../Context/auth-context"
 
 const defaultImageSrc = "/img/image_placeholder.png";
 
@@ -18,6 +18,10 @@ export const CreateRestaurantForm = (props) => {
 
   const [values, setValues] = useState(initialFieldValues);
   const [errors, setErrors] = useState({});
+
+
+  const context = useContext(AuthContext);
+  const email = context.user;
 
   useEffect(() => {
     if (recordForEdit != null) setValues(recordForEdit);
@@ -84,12 +88,13 @@ export const CreateRestaurantForm = (props) => {
     formData.append('Address',values.Address);
     //formData.append('imageName', values.imageName);
     formData.append('imageFile', values.imageFile);
+    formData.append('usermanager',email)
     
     try {
-        const response = await axios.post(url,formData,
+        const response = await axios.post(url,formData,{withCredentials:true}
             
         );
-        console.log(response);
+
       } catch (err) {
         console.log(err);
       }

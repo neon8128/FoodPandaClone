@@ -45,7 +45,6 @@ const LoginForm = () => {
       )
       let token = response.data.data;
       authContext.login(token);
-      console.log(token);
       navigate("/");
     }
     catch(e){

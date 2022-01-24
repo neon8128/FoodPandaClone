@@ -18,9 +18,10 @@ export const MenuList = (props) =>{
    
     const Refresh = async() =>{
     
-        const url = `https://localhost:44321/products/getall?Id=${restaurant.id}`;
+        if(restaurant == null) return null;
     
         try {
+            const url = `https://localhost:44321/products/getall?Id=${restaurant.id}`;
             await fetch(url, {
               method: "get",
               headers: {
@@ -87,9 +88,9 @@ export const MenuList = (props) =>{
 
 
 
-    //{...props.restaurant}
+    
     return (
-        
+       restaurant ?
         <div className="row">
             <div className="col-md-12">
             </div>
@@ -117,6 +118,10 @@ export const MenuList = (props) =>{
                     </tbody>
                 </table>
             </div>
+        </div>
+        
+        :
+        <div>Not found  
         </div>
     )
 }
