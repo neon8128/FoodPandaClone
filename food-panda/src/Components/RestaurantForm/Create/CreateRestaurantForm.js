@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState,useContext } from "react";
-import "./createstyle.css";
-import AuthContext from "../../Context/auth-context"
+import "./mine.css";
+import AuthContext from "../../../Context/auth-context"
 
 const defaultImageSrc = "/img/image_placeholder.png";
 
@@ -116,6 +116,7 @@ export const CreateRestaurantForm = (props) => {
   return (
     <>
       <div className="row">
+        <div className="component-a">
        <div className="col-md-12">
       <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
         <div className="card">
@@ -156,6 +157,7 @@ export const CreateRestaurantForm = (props) => {
           </div>
         </div>
       </form>
+      </div>
       </div>
       </div>
     </>

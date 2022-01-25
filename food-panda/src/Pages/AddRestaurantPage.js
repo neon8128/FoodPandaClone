@@ -1,4 +1,4 @@
-import CreateRestaurantForm from "../Components/RestaurantForm/CreateRestaurantForm"
+import CreateRestaurantForm from "../Components/RestaurantForm/Create/CreateRestaurantForm"
 
 
 const AddRestaurantPage = () =>{
