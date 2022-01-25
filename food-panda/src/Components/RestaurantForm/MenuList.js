@@ -13,7 +13,6 @@ export const MenuList = (props) =>{
     const [menuList, setMenuList] = useState([])
     const [recordForEdit, setRecordForEdit] = useState(null)
 
-   
 
    
     const Refresh = async() =>{
@@ -106,7 +105,7 @@ export const MenuList = (props) =>{
                 <table>
                     <tbody>
                         {
-                            
+                           // menuList ?
                             [...Array(Math.ceil(menuList.length / 3))].map((e, i) =>
                                 <tr key={i}>
                                     <td>{imageCard(menuList[3 * i])}</td>
@@ -114,6 +113,7 @@ export const MenuList = (props) =>{
                                     <td>{menuList[2 * i + 2] ? imageCard(menuList[2 * i + 2]) : null}</td>
                                 </tr>
                             )
+                          //  : <div></div>
                         }
                     </tbody>
                 </table>

@@ -1,17 +1,15 @@
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAsync } from "react-use";
 import CardList from "../Components/Card/CardList";
 import Navbar from "../Components/Navbar/MainNavigation";
-import AuthContext from "../Context/auth-context";
+
 const HomePage = () => {
    const [data, setData] = useState([]);
     const [results, setResults] = useState(data);
     const [text, setText] = useState("");
 
-    const context = useContext(AuthContext);
-    const user = context.user;
-    console.log(user);
+ 
     
     useEffect(()=>{
        
