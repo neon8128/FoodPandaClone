@@ -79,7 +79,7 @@ export const MenuList = (props) =>{
             <img src={data.imagePath} className="card-img-top rounded-circle" />
             <div className="card-body">
                 <h5>{data.item}</h5>
-                <span>{data.price}</span> <br />
+                <span>{data.price +" RON"}</span> <br />
                 <button className="btn btn-light delete-button" onClick={e => onDelete(e, parseInt(data.employeeID))}>
                     <i className="far fa-trash-alt"></i>
                 </button>

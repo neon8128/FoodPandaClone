@@ -24,6 +24,7 @@ const Products = ({ products }) => {
   if (!products.length) return <p>Loading...</p>;
 
   return (
+    
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <Grid container justify="center" spacing={4}>

@@ -7,6 +7,7 @@ import {
   clearCart,
   getTotals,
 } from "../../features/CartSlice";
+import './style.css';
 
 const CartLayout = () => {
   const items = useSelector((state) => state.cart);
