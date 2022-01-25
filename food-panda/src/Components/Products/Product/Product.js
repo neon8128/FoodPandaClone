@@ -70,7 +70,7 @@ const Product = ({ product}) => {
             {product.price} RON
           </Typography>
         </div>
-        {/* <Typography dangerouslySetInnerHTML={{ __html: product.description }} variant="body2" color="textSecondary" component="p" /> */}
+       
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
         <Button aria-label="Add to Cart" 

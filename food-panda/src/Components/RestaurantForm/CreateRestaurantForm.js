@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState,useContext } from "react";
-import "./style.css"
+import "./createstyle.css";
 import AuthContext from "../../Context/auth-context"
 
 const defaultImageSrc = "/img/image_placeholder.png";
@@ -22,6 +22,7 @@ export const CreateRestaurantForm = (props) => {
 
   const context = useContext(AuthContext);
   const email = context.user;
+  console.log(context);
 
   useEffect(() => {
     if (recordForEdit != null) setValues(recordForEdit);
@@ -106,6 +107,7 @@ export const CreateRestaurantForm = (props) => {
       await  sendRequest();
       
     }
+    resetForm();    
   };
 
   const applyErrorClass = (field) =>
@@ -113,9 +115,8 @@ export const CreateRestaurantForm = (props) => {
 
   return (
     <>
-      <div className="container text-center">
-        <p className="lead">An Employee</p>
-      </div>
+      <div className="row">
+       <div className="col-md-12">
       <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
         <div className="card">
           <img src={values.imageSrc} className="card-img-top" />
@@ -155,6 +156,8 @@ export const CreateRestaurantForm = (props) => {
           </div>
         </div>
       </form>
+      </div>
+      </div>
     </>
   );
 };

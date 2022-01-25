@@ -119,7 +119,7 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
       <MenuItem onClick={()=>navigate("/myrestaurant") }>My restaurant</MenuItem>
     </Menu>
   );
@@ -206,7 +206,7 @@ export default function PrimarySearchAppBar(props) {
         </Box>
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton size="large" color="inherit">
-            <Badge badgeContent={4} color="error">
+            <Badge badgeContent={items.cartTotalQuantity} color="error">
               <AddShoppingCartIcon />
             </Badge>
           </IconButton>
@@ -219,7 +219,7 @@ export default function PrimarySearchAppBar(props) {
             onClick={handleProfileMenuOpen}
             color="inherit"
           >
-            <Avatar alt="David Suciu" src="/static/images/avatar/2.jpg" />
+            <Avatar alt={user} src="/static/images/avatar/2.jpg" />
           </IconButton>
         </Box>
       </Toolbar>

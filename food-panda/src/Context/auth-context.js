@@ -6,6 +6,7 @@ const AuthContext = React.createContext({
   token: "",
   isLoggedIn: false,
   user:"",
+  role:"",
   login: (token) => {},
   logout: () => {},
   loading: false,
@@ -43,7 +44,7 @@ export const AuthContextProvider = (props) => {
   const parseJwt = (token) => {
     if(token == null) return null;
     try {
-      return JSON.parse(atob(token.split(".")[1])).unique_name;
+      return JSON.parse(atob(token.split(".")[1]));
     } catch (e) {
       return null;
     }
@@ -56,13 +57,7 @@ export const AuthContextProvider = (props) => {
   
   const userIsLoggedIn = !!token;
 
-  const getName =()=>{
-    if(!!token){
-      return ;
-    }
-    
-  }
-   
+  
 
   const loginHandler = (token) => {
     setToken(token);
@@ -76,7 +71,8 @@ export const AuthContextProvider = (props) => {
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
-    username: parseJwt(token),
+    username: parseJwt(token) ? parseJwt(token).unique_name : null ,
+    role: parseJwt(token) ? parseJwt(token).role: null,
     login: loginHandler,
     logout: logoutHandler,
     loading: state.loading,
