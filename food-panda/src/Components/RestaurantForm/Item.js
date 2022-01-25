@@ -40,7 +40,7 @@ export default function Item(props) {
                 setValues({
                     ...values,
                     imageFile,
-                    imageSrc: x.target.result
+                    imagePath: x.target.result
                 })
             }
             reader.readAsDataURL(imageFile)
@@ -49,7 +49,7 @@ export default function Item(props) {
             setValues({
                 ...values,
                 imageFile: null,
-                imageSrc: defaultImageSrc
+                imagePath: defaultImageSrc
             })
         }
     }

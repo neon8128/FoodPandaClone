@@ -1,8 +1,7 @@
 
-import './style.css';
+import { useEffect, useState } from 'react';
 import Item from "./Item";
-import AuthContext from '../../Context/auth-context';
-import { useContext, useState,useEffect } from 'react';
+import './style.css';
 
 
         
@@ -30,6 +29,7 @@ export const MenuList = (props) =>{
               .then((response) => response.json())
               .then((jsonResponse) => {
                 setMenuList([jsonResponse.data][0]);
+               // console.log([jsonResponse.data][0]);
               });
             // console.log(response);
            } catch (err) {
@@ -38,9 +38,10 @@ export const MenuList = (props) =>{
     }
     useEffect(async()=>{
         await Refresh();
-    },[menuList])
+       // console.log(menuList);
+    },[])
 
-    const addOrEdit = (formData, onSuccess) => {
+    const addOrEdit = async (formData, onSuccess) => {
         // if (formData.get('employeeID') == "0")
         //     employeeAPI().create(formData)
         //         .then(res => {
@@ -55,6 +56,7 @@ export const MenuList = (props) =>{
             //         refresh();
             //     })
             //     .catch(err => console.log(err))
+            await Refresh();
     
     }
     
@@ -90,10 +92,13 @@ export const MenuList = (props) =>{
     
     return (
        restaurant ?
-        <div className="row">
-            <div className="col-md-12">
-            </div>
-            <div className="col-md-4">
+       <div className="row">
+       <div className="col-md-12">
+           <div className="jumbotron jumbotron-fluid py-4">
+   
+           </div>
+       </div>
+       <div className="col-md-4">
                 <Item
                     addOrEdit={addOrEdit}
                     recordForEdit={recordForEdit}
@@ -108,9 +113,10 @@ export const MenuList = (props) =>{
                             menuList ?
                             [...Array(Math.ceil(menuList.length / 3))].map((e, i) =>
                                 <tr key={i}>
-                                    <td>{imageCard(menuList[3 * i])}</td>
+                                    <td>{imageCard(menuList[2 * i])}</td>
                                     <td>{menuList[2 * i + 1] ? imageCard(menuList[2 * i + 1]) : null}</td>
-                                    <td>{menuList[2 * i + 2] ? imageCard(menuList[2 * i + 2]) : null}</td>
+                                    <td>{menuList[2 * i + 2] ? imageCard(menuList[2 * i + 2]) : null}</td> 
+                                   
                                 </tr>
                             )
                             : <div></div>
