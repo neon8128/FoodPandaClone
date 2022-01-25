@@ -21,6 +21,7 @@ const  CardComponent =(props) =>{
 
   const navigation = useNavigate();
     const classes = useStyles();
+  
 
     return (
        
@@ -40,14 +41,14 @@ const  CardComponent =(props) =>{
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      {/* <CardActions>
         <Button size="small" color="primary">
           Share
         </Button>
         <Button size="small" color="primary">
           Learn More
         </Button>
-      </CardActions>   
+      </CardActions>    */}
         </Card>
       );
 }
