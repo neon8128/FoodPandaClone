@@ -2,8 +2,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -11,50 +9,72 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
+import { useForm } from "react-hook-form";
+import * as yup from "yup"
+import { yupResolver } from '@hookform/resolvers/yup';
+import Swal from 'sweetalert2'
+import { useState } from 'react';
+import { linearProgressClasses } from '@mui/material';
 
 
 const theme = createTheme();
 
+const schema = yup.object().shape({
+  username:yup
+  .string()
+  .required("Username is required")
+  .min(5,"Username should have at least 5 characters!"),
+  email:yup
+  .string()
+  .required("Email is required")
+  .email("Invalid email!"),
+
+})
 
 const Register =()  =>{
 
+  const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    mode:"onBlur",
+    resolver:yupResolver(schema)
+  });
+  const [success,setSuccess] = useState(false);
     const navigate = useNavigate();
-    
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  
+  const onSubmit = async (formData) => {
+   // event.preventDefault();
+   console.log(formData);
     const url = "https://localhost:44321/auth/register";
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    fetch(url, {
+   // const data = new FormData(formData);
+   // console.log(data);
+    await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-          email: data.get('email'),
-          username: data.get('username'),
-          password: data.get('password'),
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
           returnSecureToken: true,
         }),
         headers: {
           'Content-Type': 'application/json',
         },
       })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();           
-          } else {
-            return res.json().then((data) => {
-              let errorMessage = 'Registration failed!';
-  
-              throw new Error(errorMessage);
-            });
-          }
+      .then((res)=>{
+        Swal.fire("Great Job!","You have succesfully registered!","success")
+        navigate('/login');
+      })
+      .catch((err)=>{
+        Swal.fire({
+          title: 'Error!',
+          text: "Something happened",
+          icon: 'error',
+          confirmButtonText: 'Cool'
         })
-        .then((data) => {
-          navigate.push('/login');
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
+        console.log(err);
+      })
+      
+     
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -73,7 +93,7 @@ const Register =()  =>{
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate  onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -83,6 +103,9 @@ const Register =()  =>{
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  {...register("email")}
+                  error={!!errors.email}
+                  helperText={errors?.email?.message}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -92,6 +115,9 @@ const Register =()  =>{
                   id="username"
                   label="Username"
                   name="username"
+                  {...register("username")}
+                  error={!!errors.username}
+                  helperText={errors?.username?.message}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -103,25 +129,12 @@ const Register =()  =>{
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  {...register("password", { required: "Password is required." })}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password?.message}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Repeat Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
+             
             </Grid>
             <Button
               type="submit"
