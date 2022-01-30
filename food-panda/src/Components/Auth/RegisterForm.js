@@ -13,8 +13,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup"
 import { yupResolver } from '@hookform/resolvers/yup';
 import Swal from 'sweetalert2'
-import { useState } from 'react';
-import { linearProgressClasses } from '@mui/material';
+
 
 
 const theme = createTheme();
@@ -28,16 +27,23 @@ const schema = yup.object().shape({
   .string()
   .required("Email is required")
   .email("Invalid email!"),
+  password: yup
+    .string()
+    .required('Please Enter your password')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    ),
 
 })
 
 const Register =()  =>{
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     mode:"onBlur",
     resolver:yupResolver(schema)
   });
-  const [success,setSuccess] = useState(false);
+ 
     const navigate = useNavigate();
   
   const onSubmit = async (formData) => {
