@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState,useContext } from "react";
 import "./mine.css";
 import AuthContext from "../../../Context/auth-context"
-
+import Swal from 'sweetalert2'
 const defaultImageSrc = "/img/image_placeholder.png";
 
 const initialFieldValues = {
@@ -19,6 +19,7 @@ export const CreateRestaurantForm = (props) => {
   const [values, setValues] = useState(initialFieldValues);
   const [errors, setErrors] = useState({});
 
+ 
 
   const context = useContext(AuthContext);
   const email = context.user;
@@ -92,12 +93,19 @@ export const CreateRestaurantForm = (props) => {
     formData.append('usermanager',email)
     
     try {
-        const response = await axios.post(url,formData,{withCredentials:true}
-            
+        const response = await axios.post(url,formData,{withCredentials:true}          
         );
+        if(response.status == 200){
+          Swal.fire("Great Job!","The item was successfully added","success")
+        }
 
       } catch (err) {
-        console.log(err);
+        Swal.fire({
+          title: 'Error!',
+          text: "Something happened",
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        })
       }
   }
 

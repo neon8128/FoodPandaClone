@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 const defaultImageSrc = '/img/image_placeholder.png'
 
 const initialFieldValues = {
-    Item: '',
-    Price: '',
-    Description:'',
-    Categories:'',
+    item: '', 
+    price: '',
+    description:'',
+    categories:'',
     imagePath: defaultImageSrc,
     imageFile: null
 }
@@ -19,6 +19,7 @@ export default function Item(props) {
 
 
     useEffect(() => {
+
         if (recordForEdit != null)
             setValues(recordForEdit);
             
@@ -30,6 +31,7 @@ export default function Item(props) {
             ...values,
             [name]: value
         })
+ 
     }
 
     const showPreview = e => {
@@ -56,7 +58,7 @@ export default function Item(props) {
 
     const validate = () => {
         let temp = {}
-        temp.employeeName = values.employeeName == "" ? false : true;
+        temp.item = values.Item == "" ? false : true;
         temp.imageSrc = values.imageSrc == defaultImageSrc ? false : true;
         setErrors(temp)
         return Object.values(temp).every(x => x == true)
@@ -68,41 +70,22 @@ export default function Item(props) {
         setErrors({})
     }
 
-    const sendRequest = async(formData) =>{
-        const url = "https://localhost:44321/products/create";
-       
-        try {
-           await fetch(url, {
-             method: "post",
-             body: formData,
-             headers: {
-               Authorization: `Bearer ${token}`,
-             },
-           })
-             .then((response) => response.json())
-             .then((jsonResponse) => {
-              // console.log(jsonResponse);
-             });
-           // console.log(response);
-          } catch (err) {
-            console.log(err);
-            
-          }
-      }
+    
 
     const handleFormSubmit = async e => {
         e.preventDefault()
         if (validate()) {
             const formData = new FormData();
-            formData.append('Item',values.Item);
-            formData.append('Price',values.Price);
-            formData.append('Description',values.Description);
-            formData.append('Categories',values.Categories);
+            formData.append('Item',values.item);
+            formData.append('Price',values.price);
+            formData.append('Description',values.description);
+            formData.append('Categories',values.categories);
             formData.append('imageFile', values.imageFile);
             formData.append('RestaurantId',props.id);
 
-            await sendRequest(formData);
+           // await sendRequest(formData);
             addOrEdit(formData, resetForm);
+          
         }
     }
 
@@ -124,22 +107,22 @@ export default function Item(props) {
                                  />
                         </div>
                         <div className="form-group">
-                            <input className={"form-control" + applyErrorClass('Name')} placeholder="Name" name="Item"
+                            <input className={"form-control" + applyErrorClass('Name')} placeholder="Name" name="item"
                                 value={values.item}
                                 onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
-                            <input className="form-control" placeholder="Price" name="Price"
+                            <input className="form-control" placeholder="Price" name="price"
                                 value={values.price}
                                 onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
-                            <input className="form-control" placeholder="Description" name="Description"
+                            <input className="form-control" placeholder="Description" name="description"
                                 value={values.description}
                                 onChange={handleInputChange} />
                         </div>
                         <div className="form-group">
-                            <input className="form-control" placeholder="Categories" name="Categories"
+                            <input className="form-control" placeholder="Categories" name="categories"
                                 value={values.categories}
                                 onChange={handleInputChange} />
                         </div>

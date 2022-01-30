@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Item from "./Item";
 import './style.css';
-
+import Swal from 'sweetalert2'
 
         
 export const MenuList = (props) =>{
@@ -11,8 +11,8 @@ export const MenuList = (props) =>{
 
     const [menuList, setMenuList] = useState([])
     const [recordForEdit, setRecordForEdit] = useState(null)
-
-
+    const [created,setCreated] = useState(false);
+    const [updated,setUpdated] = useState(false);
    
     const Refresh = async() =>{
     
@@ -38,39 +38,108 @@ export const MenuList = (props) =>{
     }
     useEffect(async()=>{
         await Refresh();
-       // console.log(menuList);
+
     },[])
 
+   
+
+      const  updateRequest = async(formData) =>{
+        const url = `https://localhost:44321/products/update/${recordForEdit.id}`;
+        console.log(JSON.stringify(Object.fromEntries(formData)));
+        try {
+            await fetch(url, {
+              method: "put",
+              body: formData,
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+              .then((response) => response.json())
+              .then((jsonResponse) => {
+                setUpdated(true);
+              });
+
+           } catch (err) {
+             console.log(err);
+          
+           }
+       }
+       const sendRequest = async(formData) =>{
+        const url = "https://localhost:44321/Products/Create";
+        try {
+           await fetch(url, {
+             method: "post",
+             body: formData,
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           })
+             .then((response) => response.json())
+             .then((jsonResponse) => {
+               setCreated(true);
+             });
+           // console.log(response);
+          } catch (err) {
+            console.log(err);
+
+          }
+      }
     const addOrEdit = async (formData, onSuccess) => {
-        // if (formData.get('employeeID') == "0")
-        //     employeeAPI().create(formData)
-        //         .then(res => {
-        //             onSuccess();
-        //           //  refreshEmployeeList();
-        //         })
-        //         .catch(err => console.log(err))
-        // else
-            // employeeAPI().update(formData.get('Name'), formData)
-            //     .then(res => {
-            //         onSuccess();
-            //         refresh();
-            //     })
-            //     .catch(err => console.log(err))
-            await Refresh();
-    
+  
+        console.log(formData);
+          if (recordForEdit?.id){
+              //update record
+              onSuccess();
+              await updateRequest(formData);
+              await Refresh();
+              if(updated){
+                Swal.fire("Great Job!","The item was successfully updated","success");
+                setUpdated(false);
+                
+              }             
+              
+          }
+          else{
+              //create record
+              await sendRequest(formData);
+              await Refresh();
+              if(created){
+                Swal.fire("Great Job!","The item was successfully created","success");
+                setCreated(false);
+                
+              }
+ 
+          }
+           
     }
     
     const showRecordDetails = data => {
         setRecordForEdit(data)
     }
     
-    const onDelete = (e, id) => {
+    const onDelete = async(e, id) => {
         e.stopPropagation();
         if (window.confirm('Are you sure to delete this record?'))
         {
-            // employeeAPI().delete(id)
-            //     .then(res => refreshEmployeeList())
-            //     .catch(err => console.log(err)) 
+            const url = `https://localhost:44321/products/delete/${id}`
+            await fetch(url,{
+                method:"delete",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+            })
+                 .then( async res =>{
+                   await  Refresh();
+                   Swal.fire("Great Job!","The item was successfully deleted","success");
+                 } )
+                 .catch(err => {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: "Something happened",
+                        icon: 'error',
+                        confirmButtonText: 'Cool'
+                      })
+                 }) 
         }
     
     }
@@ -80,7 +149,7 @@ export const MenuList = (props) =>{
             <div className="card-body">
                 <h5>{data.item}</h5>
                 <span>{data.price +" RON"}</span> <br />
-                <button className="btn btn-light delete-button" onClick={e => onDelete(e, parseInt(data.employeeID))}>
+                <button className="btn btn-light delete-button" onClick={e => onDelete(e, data.id)}>
                     <i className="far fa-trash-alt"></i>
                 </button>
             </div>
