@@ -9,6 +9,7 @@ import {
 import './style.css';
 import axios from "axios";
 import AuthContext from "../../Context/auth-context";
+import Swal from 'sweetalert2'
 
 const CartLayout = () => {
   const items = useSelector((state) => state.cart);
@@ -59,9 +60,9 @@ const CartLayout = () => {
       catch(e)
       {
         console.log(e);
-        
       }
-
+      handleClearCart();
+      Swal.fire("Great Job!","The order was successfully sent!","success");
   }
 
   return (
