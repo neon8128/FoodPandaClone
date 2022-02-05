@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import CartComponent from "./CartList";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,10 +7,16 @@ import {
   getTotals,
 } from "../../features/CartSlice";
 import './style.css';
+import axios from "axios";
+import AuthContext from "../../Context/auth-context";
 
 const CartLayout = () => {
   const items = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const context = useContext(AuthContext);
+  const email = context.email;
+  const token = context.token;
+  
 
   useEffect(() => {
     dispatch(getTotals());
@@ -20,6 +25,44 @@ const CartLayout = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+  const handleCheckout = async () =>{
+    
+    const url = "https://localhost:44321/order/create";
+   const result = [items.cartItems][0].map( ({ item, price,cartQuantity }) =>
+   {
+      return { 
+        name:item,
+        price:price,
+        Quantity:cartQuantity 
+      };
+   });
+   let config = {
+    headers: {
+      Authorization: 'Bearer ' + token,
+      "Content-Type": "application/json"
+    }
+  }
+  const data = {
+    email:email,
+    restaurantId:items.cartItems[0].restaurant_Id,
+    items:
+     result,
+     totalPrice:items.cartTotalAmount,
+     totalQty:items.cartTotalQuantity,
+  };
+  let json = JSON.stringify(data);
+ 
+   try
+    {
+      await axios.post(url,json,config);
+    }
+      catch(e)
+      {
+        console.log(e);
+        
+      }
+
+  }
 
   return (
     <div>
@@ -47,7 +90,7 @@ const CartLayout = () => {
               <h3 className="m-0 txt-right"></h3>
               <hr className="my-4" />
               <div className="text-center">
-                <button type="button" className="btn btn-primary mb-2">
+                <button type="button" className="btn btn-primary mb-2" onClick={()=>handleCheckout()}>
                   CHECKOUT
                 </button>
                 <button type="button" className="btn btn-outlineprimary btn-sm"
