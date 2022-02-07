@@ -15,6 +15,7 @@ import AddRestaurantPage from "./Pages/AddRestaurantPage";
 import { useLocation } from "react-use";
 import MyRestaurantPage from "./Pages/MyRestaurantPage";
 import ProductsPage from "./Pages/ProductsPage";
+import  ReceivedOrders  from "./Pages/ReceivedOrders";
 
 function App() {
 
@@ -42,6 +43,9 @@ function App() {
           
           <Route exact path="/myrestaurant" element={<PrivateRoute />}>
             <Route exact path="/myrestaurant" element={<MyRestaurantPage />} />
+          </Route>
+          <Route exact path="/receivedOrders" element={<PrivateRoute />}>
+            <Route exact path="/receivedOrders" element={<ReceivedOrders/>} />
           </Route>
           <Route path="/cart" element={<Cart/>} />
           <Route exact path="/register" element={<Register />} />
