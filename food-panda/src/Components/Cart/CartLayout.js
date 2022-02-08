@@ -22,6 +22,7 @@ const CartLayout = () => {
   useEffect(() => {
     dispatch(getTotals());
   }, [items, dispatch]);
+  console.log(items.cartItems);
 
   const handleClearCart = () => {
     dispatch(clearCart());
@@ -29,12 +30,14 @@ const CartLayout = () => {
   const handleCheckout = async () =>{
     
     const url = "https://localhost:44321/order/create";
-   const result = [items.cartItems][0].map( ({ item, price,cartQuantity }) =>
+   
+   const result = [items.cartItems][0].map( ({ item, price,cartQuantity,imagePath }) =>
    {
       return { 
         name:item,
         price:price,
-        Quantity:cartQuantity 
+        Quantity:cartQuantity,
+        ImagePath:imagePath
       };
    });
    let config = {

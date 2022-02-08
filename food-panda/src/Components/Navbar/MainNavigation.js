@@ -79,6 +79,7 @@ export default function PrimarySearchAppBar(props) {
 
   const context = React.useContext(AuthContext);
   const user = context.username;
+  const isRestaurant = context.isRestaurant;
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -101,6 +102,7 @@ export default function PrimarySearchAppBar(props) {
 
   
 
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -118,9 +120,11 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      {isRestaurant &&
+      <MenuItem onClick={() =>navigate("/admin")}>Admin Menu</MenuItem>  
+      }
       {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
-      <MenuItem onClick={()=>navigate("/myrestaurant") }>My restaurant</MenuItem>
+      <MenuItem onClick={() =>navigate("/userOrders")}>My Orders</MenuItem>
     </Menu>
   );
 
