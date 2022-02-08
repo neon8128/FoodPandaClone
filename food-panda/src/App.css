@@ -29,12 +29,12 @@
   color: #61dafb;
 }
 
-.container {
+.container-admin {
   height: 200px;
   position: relative;
 }
 
-.vertical-center {
+.vertical-center-admin {
   margin: 0;
   position: absolute;
   top: 70%;

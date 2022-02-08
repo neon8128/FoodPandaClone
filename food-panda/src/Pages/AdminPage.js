@@ -7,8 +7,8 @@ const AdminPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div class="container">
-  <div class="vertical-center">
+    <div class="container-admin">
+  <div class="vertical-center-admin">
 
     <Stack direction="row" spacing={2}>
     <Button variant="contained" onClick={() =>navigate("/Orders")}>Received Orders</Button>
