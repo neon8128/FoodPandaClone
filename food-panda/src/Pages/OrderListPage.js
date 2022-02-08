@@ -1,19 +1,11 @@
-import Received from "../Components/Orders/Received/Received";
+import Table from "../Components/Orders/Received/OrderTable";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import AuthContext from "../Context/auth-context";
-import { useAsync } from "react-use";
 
-const initialState = {
-  id: "",
-  email: "",
-  items: [],
-  totalPrice: 0,
-  totalQty: 0,
-  time: "",
-};
 
-const ReceivedOrders = () => {
+
+const OrdersPage = () => {
   const [order, setOrder] = useState([]);
   const[restaurant,setRestaurant] = useState(null);
 
@@ -48,6 +40,6 @@ const ReceivedOrders = () => {
     },[])
 
 
-  return <Received orders={order}></Received>;
+  return <Table orders={order}></Table>;
 };
-export default ReceivedOrders;
+export default OrdersPage;

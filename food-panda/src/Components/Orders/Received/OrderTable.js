@@ -6,18 +6,19 @@ import {
 } from '@material-ui/core';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core';
 
 const columns = [
   {
-    id: 'orderCreatedDate',
+    id: 'time',
     lable: 'Order Date'
   },
   {
-    id: 'documentID',
+    id: 'id',
     lable: 'Order ID'
   },
   {
-    id: 'orderTotal',
+    id: 'totalPrice',
     lable: 'Amount'
   }
 ];
@@ -27,25 +28,33 @@ const styles = {
   cursor: 'pointer',
   width: '10%'
 };
+const useStyles = makeStyles({
+
+  root: {
+      "& .MuiTableCell-head": {
+          paddingTop:"6em",
+      },
+  }
+});
 const formatText = (columnName, columnValue) => {
   switch (columnName) {
-    case 'orderTotal':
-      return `£${columnValue}`;
-    case 'orderCreatedDate':
-      return moment(columnValue).format('DD/MM/YYYY')
+    case 'totalPrice':
+      return `${columnValue} RON`;
     default:
       return columnValue;
   }
 };
-const Received = ({ orders }) =>{
+const OrderTable = ({ orders }) =>{
  const navigate = useNavigate();
-  console.log(orders);
+
+ const classes = useStyles();
+
  if(orders != null)
   {return (
     <TableContainer>
       <Table>
 
-        <TableHead>
+        <TableHead className={classes.root} >
           <TableRow>
             {columns.map((column, pos) => {
               const { lable } = column;
@@ -65,12 +74,12 @@ const Received = ({ orders }) =>{
         <TableBody>
 
           {(Array.isArray(orders) && orders.length > 0) && orders.map((row, pos) => {
-            const { documentID } = row;
+            const { id } = row;
 
             return (
               <TableRow
                 key={pos}
-                onClick={() => navigate(`/order/${documentID}`)}
+                onClick={() => navigate(`/orders/${id}`)}
               >
 
                 {columns.map((column, pos) => {
@@ -101,4 +110,4 @@ const Received = ({ orders }) =>{
   else return <div>Loading</div>
 
 }
-export default Received;
+export default OrderTable;

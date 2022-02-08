@@ -15,7 +15,10 @@ import AddRestaurantPage from "./Pages/AddRestaurantPage";
 import { useLocation } from "react-use";
 import MyRestaurantPage from "./Pages/MyRestaurantPage";
 import ProductsPage from "./Pages/ProductsPage";
-import  ReceivedOrders  from "./Pages/ReceivedOrders";
+import  ReceivedOrders  from "./Pages/OrderListPage";
+import OrderPage from "./Pages/OrderPage";
+import UserOrdersPage from "./Pages/OrdersByUserPage";
+import AdminPage from "./Pages/AdminPage";
 
 function App() {
 
@@ -44,10 +47,15 @@ function App() {
           <Route exact path="/myrestaurant" element={<PrivateRoute />}>
             <Route exact path="/myrestaurant" element={<MyRestaurantPage />} />
           </Route>
-          <Route exact path="/receivedOrders" element={<PrivateRoute />}>
-            <Route exact path="/receivedOrders" element={<ReceivedOrders/>} />
+          <Route exact path="/Orders" element={<PrivateRoute />}>
+            <Route exact path="/Orders" element={<ReceivedOrders/>} />
           </Route>
+          <Route exact path="/userOrders" element={<PrivateRoute />}>
+            <Route exact path="/userOrders" element={<UserOrdersPage/>} />
+          </Route>
+          <Route path="/Orders/:order" element={<OrderPage/>} />
           <Route path="/cart" element={<Cart/>} />
+          <Route path="/admin" element={<AdminPage/>} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
         </Routes>

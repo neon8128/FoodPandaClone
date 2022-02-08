@@ -67,6 +67,12 @@ export const AuthContextProvider = (props) => {
   const logoutHandler = () => {
     setToken(null);
   };
+  const IsRestaurantHandler =() =>{
+    const role =parseJwt(token) ? parseJwt(token).role: null;
+    if(role == "Restaurant")
+    return true;
+    else return false;
+  }
 
 
   const contextValue = {
@@ -75,6 +81,7 @@ export const AuthContextProvider = (props) => {
     username: parseJwt(token) ? parseJwt(token).unique_name : null ,
     email:parseJwt(token) ? parseJwt(token).email : null,
     role: parseJwt(token) ? parseJwt(token).role: null,
+    isRestaurant: IsRestaurantHandler(),
     login: loginHandler,
     logout: logoutHandler,
     loading: state.loading,
