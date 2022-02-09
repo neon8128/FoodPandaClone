@@ -45,6 +45,7 @@ export const MenuList = (props) =>{
 
       const  updateRequest = async(formData) =>{
         const url = `https://localhost:44321/products/update/${recordForEdit.id}`;
+
         console.log(JSON.stringify(Object.fromEntries(formData)));
         try {
             await fetch(url, {
@@ -85,8 +86,7 @@ export const MenuList = (props) =>{
           }
       }
     const addOrEdit = async (formData, onSuccess) => {
-  
-        console.log(formData);
+ 
           if (recordForEdit?.id){
               //update record
               onSuccess();

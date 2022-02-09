@@ -83,6 +83,9 @@ export default function Item(props) {
             formData.append('imageFile', values.imageFile);
             formData.append('RestaurantId',props.id);
 
+            if(values.imageFile == null){
+                formData.delete('imageFile');
+            }
            // await sendRequest(formData);
             addOrEdit(formData, resetForm);
           
